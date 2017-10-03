@@ -1,0 +1,17 @@
+﻿.form-default {
+    padding: 15px;
+    border: 1px dotted grey;
+    display: inline-block;
+    margin: 10px 0;
+    width: 250px;
+    border-radius: 4px;
+}
+
+    .form-default .button {
+        width: 100%;
+    }
+
+    .form-default input {
+        padding: 5px 10px;
+        width: 220px;
+    }
