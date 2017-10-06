@@ -17,14 +17,17 @@ namespace FirstForm
             HttpResponse Response = context.Response;
 
             string pageName = Request.PhysicalApplicationPath + Request.CurrentExecutionFilePath;
-
-            NameValueCollection formValue;
+            
             if (Request.Form != null)
             {
-                formValue = Request.Form;
-                var fileUpload = Request.Form["file"];
-            }
+                string[] fieldValue = new string[Request.Form.Count];
+                for (int field = 0; field < Request.Form.Count; field++) {
+                    fieldValue[field] = Request.Form[field];
+                }
 
+                var file = Request.Files.Get("file");
+            }
+            
             Response.TransmitFile(pageName);
 
 
