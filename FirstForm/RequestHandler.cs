@@ -16,16 +16,28 @@ namespace FirstForm
             HttpRequest Request = context.Request;
             HttpResponse Response = context.Response;
 
+            string formDataFile_location_path = context.Server.MapPath("~/uploads/");
+
             string pageName = Request.PhysicalApplicationPath + Request.CurrentExecutionFilePath;
             
-            if (Request.Form != null)
+            if (Request.Form.Count > 0)
             {
-                string[] fieldValue = new string[Request.Form.Count];
+                IList<string> fieldValues = new List<string>(Request.Form.Count);
                 for (int field = 0; field < Request.Form.Count; field++) {
-                    fieldValue[field] = Request.Form[field];
+                    fieldValues.Add(Request.Form[field]);
                 }
+                
+                HttpPostedFile file = Request.Files.Get("file");
+                fieldValues.Add(file.FileName);
 
-                var file = Request.Files.Get("file");
+                DatabaseInstanse database = new DatabaseInstanse(fieldValues);
+                database.AddValue();
+
+                if (file.ContentLength > 0)
+                {
+                    file.SaveAs(formDataFile_location_path + file.FileName);
+                }
+                
             }
             
             Response.TransmitFile(pageName);
