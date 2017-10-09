@@ -76,8 +76,23 @@ namespace FirstForm
 
         public void ReadTable()
         {
+            int result = -1;
             ConnectionDB.Open();
             sql = "SELECT * FROM formData";
+            using (SQLiteCommand cmd = new SQLiteCommand(ConnectionDB))
+            {
+                cmd.CommandText = sql;
+                cmd.Prepare();
+                try
+                {
+                    result = cmd.ExecuteNonQuery();
+                }
+                catch (SQLiteException e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
+                
         }
 
     }
