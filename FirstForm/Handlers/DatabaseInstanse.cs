@@ -122,7 +122,7 @@ namespace FirstForm.Handlers
         public bool CheckRecord(string Filter)
         {
             string FilterString = "WHERE " + Filter;
-            int result = -1;
+            int rowsAffected = -1;
             ConnectionDB.Open();
             Sql = "SELECT * FROM formData " + FilterString;
 
@@ -130,9 +130,12 @@ namespace FirstForm.Handlers
             {
                 cmd.CommandText = Sql;
                 cmd.Prepare();
+                cmd.Parameters.AddWithValue("@surname", Form.DataSurname);
+                cmd.Parameters.AddWithValue("@email", Form.DataEmail);
+
                 try
                 {
-                    result = cmd.ExecuteNonQuery();
+                    rowsAffected = cmd.ExecuteNonQuery();
                 }
                 catch (SQLiteException e)
                 {
@@ -142,7 +145,7 @@ namespace FirstForm.Handlers
 
             ConnectionDB.Close();
 
-            return result>0;
+            return rowsAffected>0;
                 
         }
 
