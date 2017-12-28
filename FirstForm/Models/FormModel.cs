@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
 
-namespace FirstForm.Handlers
+namespace FirstForm.Models
 {
     public class FormModel
     {
@@ -21,6 +21,11 @@ namespace FirstForm.Handlers
             this.DataName = formDataCollection["name"];
             this.DataEmail = formDataCollection["email"];
             this.DataSurname = formDataCollection["surname"];
+        }
+
+        public FormModel()
+        {
+
         }
     }
 }
