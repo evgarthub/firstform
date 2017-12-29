@@ -1,6 +1,15 @@
 ﻿@{
     Layout = "Layout.cshtml";
 }
-
-<h2 class="title">Thank you for your data!</h2>
-<h4 class="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</h4>
+<section class="submited-data-section">
+    <header class="submited-data-section__header">
+        <h2 class="submited-data-section__title">Thank you, @Model.DataName, for your data!</h2>
+        <h4 class="submited-data-section__text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</h4>
+    </header>
+    <content class="submited-data-section__content">
+        <div class="submited-data-section__image"></div>
+        <div class="">@Model.DataName</div>
+        <div class="">@Model.DataSurname</div>
+        <div class="">@Model.DataEmail</div>
+    </content>
+</section>

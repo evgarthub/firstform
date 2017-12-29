@@ -28,6 +28,8 @@ namespace FirstForm.Handlers
                 FormHandler handleForm = new FormHandler(Request, formDataFileLocationPath);
             }
 
+            DatabaseInstanse saveUserInfo = new DatabaseInstanse(Request.Form["email"]);
+
             RazorTemplating service = new RazorTemplating("thank-you");
             
             Response.Write(service.GetHtmlString());

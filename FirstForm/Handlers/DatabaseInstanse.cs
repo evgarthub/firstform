@@ -3,6 +3,9 @@ using System.Data.SQLite;
 using System.Configuration;
 using System.Collections.Specialized;
 using FirstForm.Models;
+using FirstForm.ViewModels;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace FirstForm.Handlers
 {
@@ -22,6 +25,15 @@ namespace FirstForm.Handlers
             ConnectionDB = new SQLiteConnection(connectionString);
 
             PrepareData(valueData, uploadedFileName);
+        }
+
+        public DatabaseInstanse(string userEmail)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["defaultConnection"].ConnectionString;
+
+            ConnectionDB = new SQLiteConnection(connectionString);
+
+            RetrieveData(userEmail);
         }
 
         public void PrepareData(NameValueCollection valueData, string uploadedFileName)
@@ -145,6 +157,32 @@ namespace FirstForm.Handlers
 
             return rowsAffected>0;
                 
+        }
+
+        public void RetrieveData(string userEmail)
+        {
+            FormModel form = new FormModel();
+            
+            ConnectionDB.Open();
+            Sql = "SELECT * FROM formData WHERE email = @email";
+            
+
+            using (SQLiteCommand cmd = new SQLiteCommand(ConnectionDB))
+            {
+                cmd.CommandText = Sql;
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@email", userEmail);
+
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        form.DataEmail = reader["email"].ToString();
+                        form.DataName = reader["name"].ToString();
+                        form.DataSurname = reader["surname"].ToString();
+                    }
+                }
+            }
         }
 
     }

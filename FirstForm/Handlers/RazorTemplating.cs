@@ -1,4 +1,5 @@
 ﻿using FirstForm.Models;
+using FirstForm.ViewModels;
 using RazorEngine;
 using RazorEngine.Configuration;
 using RazorEngine.Configuration.Xml;
@@ -24,8 +25,8 @@ namespace FirstForm.Handlers
             string template = pageTemplate;
 
             FormModel formModel = new FormModel();
-            Engine.Razor.Compile(template);
-            this.PageCode = Engine.Razor.Run(Engine.Razor.GetKey(template));
+            Engine.Razor.Compile(template, null);
+            this.PageCode = Engine.Razor.Run(Engine.Razor.GetKey(template), null, (object)formModel, null);
         }
 
         public string GetHtmlString()

@@ -8,13 +8,13 @@ namespace FirstForm.Models
 {
     public class FormModel
     {
-        public string DataName { get; private set; }
+        public string DataName { get; set; }
 
-        public string DataEmail { get; private set; }
+        public string DataEmail { get; set; }
 
-        public string DataSurname { get; private set; }
+        public string DataSurname { get; set; }
 
-        public string DataFileName { get; private set; }
+        public string DataFileName { get; set; }
 
         public FormModel(NameValueCollection formDataCollection)
         {
